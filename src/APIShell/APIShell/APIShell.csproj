@@ -16,4 +16,10 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\APIShell.CrossCutting\APIShell.CrossCutting.csproj" />
+    <ProjectReference Include="..\APIShell.Domain.Core\APIShell.Domain.Core.csproj" />
+    <ProjectReference Include="..\APIShell.Domain\APIShell.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
