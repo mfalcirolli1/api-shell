@@ -1,3 +1,4 @@
+using APIShell.CrossCutting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -70,6 +71,7 @@ namespace APIShell
 
             services.AddHttpClient();
             services.AddMvcCore().AddNewtonsoftJson();
+            Bootstrapper.Initialize(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

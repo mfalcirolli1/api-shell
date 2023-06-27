@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Shell\Contracts\" />
     <Folder Include="Shell\Model\" />
     <Folder Include="Shell\ViewModel\" />
   </ItemGroup>
