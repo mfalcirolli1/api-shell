@@ -1,10 +1,11 @@
-﻿using System;
+﻿using APIShell.Domain.Shell.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace APIShell.Services.Services
 {
-    public class ShellService
+    public class ShellService : IShellService
     {
         public string ShellTest(int id)
         {
