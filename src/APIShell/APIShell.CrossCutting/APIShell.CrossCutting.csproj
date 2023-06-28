@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APIShell.Domain\APIShell.Domain.csproj" />
+    <ProjectReference Include="..\APIShell.Infrastructure\APIShell.Infrastructure.csproj" />
     <ProjectReference Include="..\APIShell.Services\APIShell.Services.csproj" />
   </ItemGroup>
 

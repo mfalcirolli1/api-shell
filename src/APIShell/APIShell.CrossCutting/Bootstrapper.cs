@@ -1,9 +1,10 @@
 ﻿using APIShell.Domain.Core.Notifications;
 using APIShell.Domain.Shell.Contracts;
+using APIShell.Infrastructure.ORM;
 using APIShell.Services.Services;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace APIShell.CrossCutting
 {
@@ -12,6 +13,7 @@ namespace APIShell.CrossCutting
         public static void Initialize(IServiceCollection services)
         {
             // Context
+            services.AddScoped<ShellContext>();
             
             // MediatR
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -19,9 +21,10 @@ namespace APIShell.CrossCutting
             // Services
             services.AddScoped<IShellService, ShellService>();
 
+            // Repository
+
             // Utils
 
-            // Repository
         }
     }
 }
