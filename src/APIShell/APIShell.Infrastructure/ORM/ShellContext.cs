@@ -27,8 +27,8 @@ namespace APIShell.Infrastructure.ORM
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = FromBase64ToString(configuration.GetConnectionString("LOCAL_DB"));
-                //var connectionString = FromBase64ToString("ZGF0YSBzb3VyY2U9KGxvY2FsZGIpXE1TU1FMTG9jYWxEQjtpbml0aWFsIGNhdGFsb2c9TUZBTENJUk9MTEkwMTtpbnRlZ3JhdGVkIHNlY3VyaXR5PVRydWU7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPVRydWU7QXBwPUVudGl0eUZyYW1ld29yaw==");
+                //var connectionString = FromBase64ToString(configuration.GetConnectionString("LOCAL_DB"));
+                var connectionString = FromBase64ToString("ZGF0YSBzb3VyY2U9KGxvY2FsZGIpXE1TU1FMTG9jYWxEQjtpbml0aWFsIGNhdGFsb2c9TUZBTENJUk9MTEkwMTtpbnRlZ3JhdGVkIHNlY3VyaXR5PVRydWU7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPVRydWU7QXBwPUVudGl0eUZyYW1ld29yaw==");
 
                 optionsBuilder.UseSqlServer(connectionString, sql =>
                 {
