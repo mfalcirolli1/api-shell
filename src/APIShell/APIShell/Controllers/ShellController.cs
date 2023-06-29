@@ -2,6 +2,7 @@
 using APIShell.Domain.Core.Notifications;
 using APIShell.Domain.Response;
 using APIShell.Domain.Shell.Contracts;
+using APIShell.Domain.Shell.ViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -21,12 +22,12 @@ namespace APIShell.Controllers
         [ProducesResponseType(typeof(SuccessResponse), 200)]
         [ProducesResponseType(typeof(DomainNotification), 400)]
         [ProducesResponseType(typeof(DomainNotification), 500)]
-        [HttpGet("GetExemple")]
-        public IActionResult GetExemple(int id)
+        [HttpGet("GetAllCustumerInfo")]
+        public IActionResult GetAllCustumerInfo(int id)
         {
             if (ModelState.IsValid)
             {
-                return CreateResponse(() => shellService.ShellTest(id));
+                return CreateResponse(() => shellService.GetAllCustumerInfo(id));
             }
             else
             {
@@ -43,6 +44,36 @@ namespace APIShell.Controllers
                     });
                 }
                 return BadRequest(error); 
+
+                #endregion
+            }
+        }
+
+        [ProducesResponseType(typeof(SuccessResponse), 200)]
+        [ProducesResponseType(typeof(DomainNotification), 400)]
+        [ProducesResponseType(typeof(DomainNotification), 500)]
+        [HttpPost("InsertCustumer")]
+        public IActionResult InsertCustumer([FromBody] ShellViewModel shellViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return CreateResponse(() => shellService.InsertCustumer(shellViewModel.nome, shellViewModel.email));
+            }
+            else
+            {
+                #region | Error Models
+
+                var error = new List<ModelErrorDataResponse>();
+
+                foreach (var item in ModelState)
+                {
+                    error.Add(new ModelErrorDataResponse
+                    {
+                        Key = item.Key,
+                        Erro = item.Value.Errors.FirstOrDefault().ErrorMessage.ToString()
+                    });
+                }
+                return BadRequest(error);
 
                 #endregion
             }

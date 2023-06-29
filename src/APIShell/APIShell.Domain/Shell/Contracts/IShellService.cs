@@ -4,6 +4,7 @@ namespace APIShell.Domain.Shell.Contracts
 {
     public interface IShellService
     {
-        ShellModel ShellTest(int id);
+        ShellModel GetAllCustumerInfo(int id);
+        void InsertCustumer(string name, string email);
     }
 }

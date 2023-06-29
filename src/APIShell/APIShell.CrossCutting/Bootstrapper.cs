@@ -1,8 +1,10 @@
 ﻿using APIShell.Domain.Core.Notifications;
+using APIShell.Domain.Error.Contracts;
 using APIShell.Domain.Shell.Contracts;
 using APIShell.Infrastructure.ORM;
 using APIShell.Infrastructure.Repositories;
 using APIShell.Services.Services;
+using APIShell.Services.Utils;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +27,7 @@ namespace APIShell.CrossCutting
             services.AddScoped<IShellRepository, ShellRepository>();
 
             // Utils
+            services.AddScoped<IErrorService, ErrorService>();
         }
     }
 }
