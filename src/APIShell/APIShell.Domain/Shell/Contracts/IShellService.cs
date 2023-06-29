@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using APIShell.Domain.Shell.Model;
 
 namespace APIShell.Domain.Shell.Contracts
 {
     public interface IShellService
     {
-        string ShellTest(int id);
+        ShellModel ShellTest(int id);
     }
 }

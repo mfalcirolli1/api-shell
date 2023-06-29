@@ -10,7 +10,7 @@ namespace APIShell.Infrastructure.ORM
         where TContext : DbContext, new()
         where TEntity : class, new()
     {
-        private readonly TContext _context;
+        protected readonly TContext _context;
 
         protected Repository(TContext context)
         {
