@@ -1,8 +1,10 @@
 ﻿using APIShell.Domain.Error.Contracts;
 using APIShell.Domain.Shell.Contracts;
 using APIShell.Domain.Shell.Model;
+using Bogus;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace APIShell.Services.Services
@@ -20,8 +22,28 @@ namespace APIShell.Services.Services
 
         public ShellModel GetAllCustumerInfo(int id)
         {
-            var client = shellRepository.GetCustomerInfoById(id);
-            return client;
+            try
+            {
+                if (id == 0)
+                {
+                    errorService.Errors("GetAllCustumerInfo", $"Insira um ID válido!", "ShellService");
+                    return null;
+                }
+
+                var client = shellRepository.GetCustomerInfoById(id);
+                if (client == null)
+                {
+                    errorService.Errors("GetAllCustumerInfo", $"Não existe cliente cadastrado para este ID!", "ShellService");
+                    return null;
+                }
+
+                return client;
+            }
+            catch (Exception ex)
+            {
+                errorService.Errors("GetAllCustumerInfo", $"Exception: {ex.Message} \n StackTrace: {ex.StackTrace}", "ShellService");
+                throw ex;
+            }
         }
 
         public void InsertCustumer(string name, string email)
@@ -36,12 +58,28 @@ namespace APIShell.Services.Services
                     return;
                 }
 
-                customer.Nome = name;
-                customer.Email = email;
-                customer.CEP = "";
-                customer.Telefone = "";
+                var newCustomer = new Faker<ShellModel>()
+                .RuleFor(x => x.Nome, f => name)
+                .RuleFor(x => x.Email, f => email)
+                .RuleFor(x => x.CEP, f => f.Address.ZipCode())
+                .RuleFor(x => x.Endereco, f => f.Address.StreetAddress())
+                .RuleFor(x => x.Cidade, f => f.Address.City())
+                .RuleFor(x => x.Estado, f => f.Address.State())
+                .RuleFor(x => x.Telefone, f => "11 00000-0000")
+                .RuleFor(x => x.Idade, f => f.Random.Number(18, 90).ToString())
+                .RuleFor(x => x.DataCadastro, f => DateTime.Now)
+                .RuleFor(x => x.Observacao, f => $"Cliente {name}"
+                );
 
-                shellRepository.Insert(customer);
+                var result = newCustomer.Generate(1);
+
+                if (result.Any())
+                {
+                    foreach (var _newCustomer in result)
+                    {
+                        shellRepository.Insert(_newCustomer);
+                    }
+                }
             }
             catch (Exception ex)
             {
