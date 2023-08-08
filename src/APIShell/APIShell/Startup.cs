@@ -1,3 +1,4 @@
+using APIShell.Core;
 using APIShell.CrossCutting;
 using APIShell.Infrastructure.ORM;
 using Microsoft.AspNetCore.Builder;
@@ -103,6 +104,7 @@ namespace APIShell
                 return next();
             });
 
+            app.AuthenticationMiddleware();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
