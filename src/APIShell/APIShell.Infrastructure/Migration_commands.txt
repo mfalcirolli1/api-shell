@@ -1,0 +1,4 @@
+﻿Add-migration <name>
+script-migration <name>
+update-database
+remove-migration
