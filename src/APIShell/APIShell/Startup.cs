@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,9 +65,9 @@ namespace APIShell
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer" 
+                                Id = "Bearer"
                             }
-                        }, new List<string>() 
+                        }, new List<string>()
                     }
                 });
 
@@ -75,11 +76,33 @@ namespace APIShell
             services.AddHttpClient();
             services.AddMvcCore().AddNewtonsoftJson();
             Bootstrapper.Initialize(services);
+
+            #region Serilog Configuration
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddSerilog();
+            });
+
+            Log.CloseAndFlush();
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            #region Serilog Configuration
+
+            app.UseSerilogRequestLogging();
+            app.PerfomanceLoggingMiddleware();
+
+            #endregion
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -105,6 +128,7 @@ namespace APIShell
             });
 
             app.AuthenticationMiddleware();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

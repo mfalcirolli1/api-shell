@@ -1,0 +1,6 @@
+projectKey=org.sonarqube:apishell
+serverUrl=http://localhost:9000
+serverVersion=10.3.0.82913
+dashboardUrl=http://localhost:9000/dashboard?id=org.sonarqube%3Aapishell
+ceTaskId=AYxbROlm7woSlwCV5iaC
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYxbROlm7woSlwCV5iaC

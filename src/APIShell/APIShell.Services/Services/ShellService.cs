@@ -2,6 +2,7 @@
 using APIShell.Domain.Shell.Contracts;
 using APIShell.Domain.Shell.Model;
 using Bogus;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace APIShell.Services.Services
 
         public ShellModel GetAllCustumerInfo(int id)
         {
+            Log.Information($"Obtendo informação do cliente de ID: {id}, na classe {nameof(ShellService)}, método {nameof(GetAllCustumerInfo)}");
+
             try
             {
                 if (id == 0)
